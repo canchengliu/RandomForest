@@ -91,9 +91,6 @@
     <None Include="data\top2000.csv" />
     <None Include="data\train100.csv" />
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="test_decisionTreeOutput.txt" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
