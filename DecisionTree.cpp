@@ -1,6 +1,5 @@
 #include "header.h"
 
-
 void readTrainFile(const char* filename, vvd& dataTable) {
 	ifstream inputFile;												// Input file stream
 	string singleInstance;											// Single line read from the input file 
@@ -108,6 +107,7 @@ double test(vvd& dataTable, node* &root, int defaultClass) {
 }
 
 vi _test(vvd& dataTable, node* &root, int defaultClass) {
+	cout << "*h3";
 	//node* root = *proot;
 	vi predictedClassLabels;										// Stores the predicted class labels for each row
 	int predictedLabel;
@@ -115,17 +115,20 @@ vi _test(vvd& dataTable, node* &root, int defaultClass) {
 		predictedLabel = testDataOnDecisionTree(dataTable[i], root, defaultClass);
 		predictedClassLabels.push_back(predictedLabel);
 	}
-	dataTable.clear();
+	cout << "*h4";
+	//dataTable.clear();
 	return predictedClassLabels;
 }
 
 void _printResult(vi& predictedClassLabels, vvd& testingData) {
 	vi givenClassLabels;											// Stores the given class labels in the test data
+	cout << "*p1";
 	int lastCol = testingData[0].size()-1;
 	for (size_t i = 0; i < testingData.size(); i++) {						// Store given class labels in vector of strings named givenClassLabels
 		int label = (int)testingData[i][lastCol];
 		givenClassLabels.push_back(label);
 	}
+	cout << "*p2";
 	/* Print output */
 	ofstream outputFile;
 	outputFile.open("test_decisionTreeOutput.txt", ios::app);
@@ -135,52 +138,76 @@ void _printResult(vi& predictedClassLabels, vvd& testingData) {
 	outputFile.close();
 }
 
-vi decisionTree(vvd& trainingData, node* &treeRoot) {
+vi decisionTree(vvd& trainingData, node* &treeRoot, vvd& testingData) {
 	int defaultClass = _train(trainingData, treeRoot);
-	return _test(trainingData, treeRoot, defaultClass);
+	return _test(testingData, treeRoot, defaultClass);
 }
 
 int findMax(int a[], int n) {
 	if (n <= 0) return -1;
-	int max = a[0];
+	int max = a[0], maxIndex = 0;
 	for (int i = 1; i < n; i++) {
-		if (a[i] > max) max = a[i];
+		if (a[i] > max) {
+			max = a[i];
+			maxIndex = i;
+		}
 	}
-	return max;
+	return maxIndex;
 }
-
-void devideTrainingData(vvd& trainingData, int numTrees, vvvd& devideTrainingData) {
+/*
+void devideTrainingData(vvd& trainingData, int numTrees, vvvd& selectedTrainingData) {
 	int i, j, dataSize = (int)trainingData.size() / numTrees;
 	vvd tmpTrainingData;
-	for (i = 0; i < numTrees - 1; i++) {
+	for (i = 0; i < numTrees; i++) {
 		for (j = i * dataSize; j < (i+1) * dataSize; j++) {
 			tmpTrainingData.push_back(trainingData[j]);
 		}
-		devideTrainingData.push_back(tmpTrainingData);
+		selectedTrainingData.push_back(tmpTrainingData);
 		tmpTrainingData.clear();
 	}
-	for (i = (i+1) * dataSize; i < trainingData.size(); i++) {
-		tmpTrainingData.push_back(trainingData[i]);
+	if (numTrees * dataSize < (int)trainingData.size()) {
+		for (i = numTrees * dataSize; i < trainingData.size(); i++) {
+			selectedTrainingData[numTrees - 1].push_back(trainingData[i]);
+		}
 	}
-	devideTrainingData.push_back(tmpTrainingData);
+	
 	tmpTrainingData.clear();
 }
+*/
+
+void randomSelectTrainingData(vvd& trainingData, int numTrees, vvvd& selectedTrainingData) {
+	const double SELECT_PERCENT = 0.7;
+	int treeTrainDataSize = (int)(trainingData.size() * SELECT_PERCENT);
+	vvd tmpTrainingData;
+	for (int i = 0; i < numTrees; i++) {
+		random_shuffle(trainingData.begin(), trainingData.end());
+		selectedTrainingData.push_back(tmpTrainingData);
+		selectedTrainingData[i].assign(trainingData.begin(), trainingData.begin() + treeTrainDataSize);
+	}
+}
+//random_shuffle(arr.begin(), arr.end());
 
 void randomForest(int numTrees, vvd& trainingData, vvd& testingData) {
 	//set: int numClasses=2, int maxDepth=4, int maxBins=32
 	node** treeRoot = new node*[numTrees];
 	vvi predictedClassLabels; // Store all the predicted class label result of the randomforest
 	vi mostPredictedClassLabels; //Store all the most frequent predicted label of the random foret to be the final predicted class label
-	vvvd devidedTrainingData;
-	devideTrainingData(trainingData, numTrees, devidedTrainingData);
+	vvvd selectedTrainingData;
+	randomSelectTrainingData(trainingData, numTrees, selectedTrainingData);
 	int* mostLabel = new int[MAX_CLASS_COUNT + 1]; // 
+	
 	memset(mostLabel, 0, (MAX_CLASS_COUNT + 1) * sizeof(int));
-
 	for (int i = 0; i < numTrees; i++) {
-		vi tmp = decisionTree(devidedTrainingData[i], treeRoot[i]);
+		//cout << "ZZZZZZ:" << selectedTrainingData.size() << "XXXX:" << testingData.size();
+		vi tmp = decisionTree(selectedTrainingData[i], treeRoot[i], testingData);
 		predictedClassLabels.push_back(tmp);
 	}
 	int predictedLabel = 0; // Get the most frequent predicted label of the random foret to be the final predicted class label
+	for (size_t column = 0; column < predictedClassLabels.size(); column++) {
+		cout << "MMM:";
+		cout << predictedClassLabels[column].size();
+	}
+
 	for (size_t column = 0; column < predictedClassLabels[0].size(); column++) {
 		for (size_t tree = 0; tree < predictedClassLabels.size(); tree++) {
 			mostLabel[predictedClassLabels[tree][column]]++;
@@ -189,6 +216,7 @@ void randomForest(int numTrees, vvd& trainingData, vvd& testingData) {
 		mostPredictedClassLabels.push_back(predictedLabel);
 		memset(mostLabel, 0, (MAX_CLASS_COUNT + 1) * sizeof(int));
 	}
+	cout << "################" << mostPredictedClassLabels.size() << "$$$$$$$$$$$$$" << testingData.size();
 	_printResult(mostPredictedClassLabels, testingData);
 }
 
@@ -198,7 +226,7 @@ int main(int argc, const char *argv[]) {
 	vvd testTable;
 	readTrainFile("data/top20.csv", trainTable);
 	readTestFile("data/top20.csv", testTable);							// Input data in the form of a vector of vector of strings
-	randomForest(2, trainTable, testTable);
+	randomForest(3, trainTable, testTable);
 	trainTable.clear(); 												// clear dataTable of training data to store testing data
 	testTable.clear(); 												// clear dataTable of training data to store testing data
 	return 0;
