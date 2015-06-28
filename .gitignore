@@ -1,0 +1,4 @@
+Debug/*
+*.vcxroj
+*.filters
+*.exe
