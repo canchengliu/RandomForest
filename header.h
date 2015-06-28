@@ -31,10 +31,12 @@ struct splitBound {
 typedef vector<string> vs;
 typedef vector<vs> vvs;
 typedef vector<int> vi;
+typedef vector<vi> vvi;
 typedef map<string, int> msi;
 typedef map<int, int> mii;
 typedef vector<double> vd;
 typedef vector<vd> vvd;
+typedef vector<vvd> vvvd;
 typedef vector<splitBound> vsb;
 typedef vector<vsb> vvsb;
 
