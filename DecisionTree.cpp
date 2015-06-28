@@ -21,7 +21,7 @@ void readTrainFile(const char* filename, vvd& dataTable) {
 void readTestFile(const char* filename, vvd& dataTable) {
 	ifstream inputFile;												// Input file stream
 	string singleInstance;											// Single line read from the input file 
-	inputFile.open(filename); 										// Open test file
+	inputFile.open("data/top200.csv"); 										// Open test file
 	if (!inputFile) { 												// Exit if test file is not found
 		cerr << "Error: Testing data file not found!" << endl;
 		exit(-1);
