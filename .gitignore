@@ -1,4 +1,11 @@
 Debug/*
+<<<<<<< Updated upstream
 *.vcxroj
 *.filters
 *.exe
+=======
+*.vcxproj
+*.filters
+*.exe
+
+>>>>>>> Stashed changes
