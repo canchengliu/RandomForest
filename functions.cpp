@@ -297,11 +297,13 @@ return;
 * the class label with the highest frequency.
 */
 int testDataOnDecisionTree(vd &singleLine, node* nodePtr, int defaultClass){
+	//cout << "*####";
 	int prediction = 0;
 	int colIndex, childIndex;
 	double value;
 	//nodePtr->isLeaf = false;
-	////cout << "*" <<( (nodePtr->isLeaf == false) ? 1:3 )<< "*" << nodePtr->children.size() << endl;
+
+	//cout << "*" << nodePtr->isLeaf << "*" << nodePtr->children.size() << endl;
 	while (!nodePtr->isLeaf && !nodePtr->children.empty()) {
 		//cout << "*@@@";
 		colIndex = nodePtr->splitOn;
@@ -316,6 +318,7 @@ int testDataOnDecisionTree(vd &singleLine, node* nodePtr, int defaultClass){
 		prediction = nodePtr->label;
 		
 	}
+	//cout << "*^^^^^^";
 	return prediction;
 }
 
