@@ -4,6 +4,7 @@ Debug/*
 *.filters
 *.exe
 =======
+Debug/*
 *.vcxproj
 *.filters
 *.exe
