@@ -78,11 +78,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DecisionTree.h" />
     <ClInclude Include="header.h" />
+    <ClInclude Include="RandomForest.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="DecisionTree.cpp" />
-    <ClCompile Include="functions.cpp" />
+    <ClCompile Include="RandomForest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data\test100.csv" />

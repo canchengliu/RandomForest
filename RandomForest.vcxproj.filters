@@ -18,15 +18,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="RandomForest.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DecisionTree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="header.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DecisionTree.cpp">
+    <ClCompile Include="RandomForest.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="functions.cpp">
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DecisionTree.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
