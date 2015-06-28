@@ -13,17 +13,31 @@
 
 using namespace std;
 
-namespace std {
-	vector<string> Tokenize(const string& str,const string& delimiters);
+void readTrainFile(const char* filename, vvd& dataTable) {
+	ifstream inputFile;												// Input file stream
+	string singleInstance;											// Single line read from the input file 
+	inputFile.open(filename);
+	if (!inputFile) {												// If input file does not exist, print error and exit
+		cerr << "Error: Training data file not found!" << endl;
+		exit(-1);
+	}
+	getline(inputFile, singleInstance);								// Drop the first line of  attribute name
+	while (getline(inputFile, singleInstance)) {					// Read from file, parse and store data
+		parse(linefilter(singleInstance), dataTable);
+	}
+	//printAttributeTable(dataTable);
+	inputFile.clear();
+	inputFile.close();
 }
 
-void execute_main(const int process_count, const double sample_probability);
+
+void execute_main(const int process_count, const double sample_probability, vvd& trainingData, vvd& testingData);
 
 void execute_child(const unsigned int parent_rank,
 	const unsigned int rank,
 	const unsigned int bootstrap_divisor,
 	const unsigned int split_keys_per_node,
-	const unsigned int trees_per_forest );
+	const unsigned int trees_per_forest);
 
 int main( int argc, char ** argv ) {
 	int is_initialized = 0;
@@ -48,7 +62,7 @@ int main( int argc, char ** argv ) {
 			<< rank << " N: " << name << endl;
 
 		// Enough arguments?
-		if ( argc != 5 ) {
+		if ( 0 /*argc != 5 */) {
 			if ( rank == 0 ) {
 				cout
 					<< "Usage: mpirun -n <1> rf <2> <3> <4> <5>\n"
@@ -59,8 +73,6 @@ int main( int argc, char ** argv ) {
 					<< "	<5> - Training set sample probability (%)" << endl;
 			}
 		} else {
-			double sample_probability = atof(argv[4]);
-
 			if (rank == processes-1) {
 				if ( sample_probability < 1.0 ) {
 					sample_probability = 1.0;
@@ -68,15 +80,22 @@ int main( int argc, char ** argv ) {
 				if ( sample_probability > 100.0 ) {
 					sample_probability = 100.0;
 				}
-				execute_main( processes, sample_probability / 100.0 );
+				vvd trainTable;
+				vvd testTable;
+				readTrainFile("data/top20.csv", trainTable);
+				readTestFile("data/top20.csv", testTable);							// Input data in the form of a vector of vector of strings
+				execute_main(processes, sample_probability / 100.0, trainTable, testTable);
 			}
 			else {
 				// Extract parameters.
-				unsigned int bootstrap_divisor = atoi(argv[1]);
-				unsigned int split_keys_per_node = atoi(argv[2]);
-				unsigned int trees_per_forest = atoi(argv[3]);
+				//unsigned int bootstrap_divisor = atoi(argv[1]);
+				//unsigned int split_keys_per_node = atoi(argv[2]);
+				//unsigned int trees_per_forest = atoi(argv[3]);
+				bootstrap_divisor = ;
+				split_keys_per_node = MAX_BIN;
+				trees_per_forest = 
 				execute_child(
-					processes-1,
+					processes - 1,
 					rank,
 					bootstrap_divisor,
 					split_keys_per_node,
@@ -91,7 +110,7 @@ int main( int argc, char ** argv ) {
 	return 0;
 }
 
-void execute_main( const int process_count, const double sample_probability ) {
+void execute_main(const int process_count, const double sample_probability, vvd& trainingData, vvd& testingData) {
 	unsigned int child_process_count = process_count - 1;
 
 	cout << "Master online: [CPC: " << child_process_count
@@ -99,26 +118,14 @@ void execute_main( const int process_count, const double sample_probability ) {
 	int sample_probability_int = static_cast<int>(RAND_MAX * sample_probability);
 
 	// Read data.
-	unsigned int col_count = 107; // Ignore first (ID) column and last (?) col.
+	//unsigned int col_count = (int)trainingData[0].size(); // Ignore first (ID) column and last (?) col.
 
 	// Buffers.
-	double row_buffer[col_count];
-	string line;
+	double* row_buffer;
 
-	cout << "Master: Loading data..." << endl;
-	ifstream file( "data/seq_val_1_2.csv", ios_base::in );
-	while ( getline(file, line, '\n') ) {
-		// Tokenize row.
-		vector<string> tokens = Tokenize(line, "\t");
-
-		// First element is the ID. Skip.
-		// Second element is the class (1 - somatic, 2 - germline, 3 - wildtype).
-		row_buffer[0] = ( atof(tokens[1].c_str()) <= 1.0 ) ? 1.0 : 0.0;
-
-		// Fetch the rest of the features.
-		for ( unsigned int col = 1; col < col_count; ++col ) {
-			row_buffer[col] = atof(tokens[col + 1].c_str());
-		}
+	for (size_t i = 0; i < trainingData.size(); i++) {
+		row_buffer = trainingData[i].data();
+		unsigned int col_count = trainingData[i].size();
 
 		// Send to child.
 		for ( unsigned int child_rank = 0; child_rank < child_process_count; ++child_rank ) {

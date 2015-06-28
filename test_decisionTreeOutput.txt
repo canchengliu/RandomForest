@@ -1,25 +1,205 @@
   #     Given Class                Predicted Class
 --------------------------------------------------
   1               1  ------------  1
-  2               1  ------------  1
-  3               2  xxxxxxxxxxxx  1
-  4               2  xxxxxxxxxxxx  1
-  5               3  xxxxxxxxxxxx  1
-  6               3  xxxxxxxxxxxx  1
-  7               4  xxxxxxxxxxxx  1
-  8               4  xxxxxxxxxxxx  1
-  9               5  xxxxxxxxxxxx  8
- 10               5  xxxxxxxxxxxx  6
- 11               6  xxxxxxxxxxxx  8
- 12               6  ------------  6
- 13               7  xxxxxxxxxxxx  8
- 14               7  xxxxxxxxxxxx  3
+  2               1  xxxxxxxxxxxx  7
+  3               2  ------------  2
+  4               2  ------------  2
+  5               3  ------------  3
+  6               3  ------------  3
+  7               4  xxxxxxxxxxxx  5
+  8               4  xxxxxxxxxxxx  5
+  9               5  xxxxxxxxxxxx  4
+ 10               5  ------------  5
+ 11               6  xxxxxxxxxxxx  1
+ 12               6  xxxxxxxxxxxx  19
+ 13               7  xxxxxxxxxxxx  3
+ 14               7  xxxxxxxxxxxx  1
  15               8  xxxxxxxxxxxx  1
- 16               8  ------------  8
- 17               9  xxxxxxxxxxxx  1
- 18               9  xxxxxxxxxxxx  5
- 19              10  xxxxxxxxxxxx  1
+ 16               8  xxxxxxxxxxxx  1
+ 17               9  xxxxxxxxxxxx  7
+ 18               9  xxxxxxxxxxxx  2
+ 19              10  xxxxxxxxxxxx  24
+ 20              10  xxxxxxxxxxxx  7
+ 21              11  xxxxxxxxxxxx  1
+ 22              11  ------------  11
+ 23              12  xxxxxxxxxxxx  1
+ 24              12  xxxxxxxxxxxx  6
+ 25              13  xxxxxxxxxxxx  1
+ 26              13  xxxxxxxxxxxx  6
+ 27              14  ------------  14
+ 28              14  ------------  14
+ 29              15  xxxxxxxxxxxx  1
+ 30              15  ------------  15
+ 31              16  xxxxxxxxxxxx  5
+ 32              16  xxxxxxxxxxxx  3
+ 33              17  xxxxxxxxxxxx  7
+ 34              17  xxxxxxxxxxxx  1
+ 35              18  xxxxxxxxxxxx  6
+ 36              18  xxxxxxxxxxxx  1
+ 37              19  xxxxxxxxxxxx  1
+ 38              19  ------------  19
+ 39              20  xxxxxxxxxxxx  2
+ 40              20  xxxxxxxxxxxx  2
+ 41              21  xxxxxxxxxxxx  3
+ 42              21  xxxxxxxxxxxx  14
+ 43              22  ------------  22
+ 44              22  xxxxxxxxxxxx  5
+ 45              23  xxxxxxxxxxxx  7
+ 46              23  xxxxxxxxxxxx  1
+ 47              24  xxxxxxxxxxxx  1
+ 48              24  xxxxxxxxxxxx  1
+ 49              25  xxxxxxxxxxxx  6
+ 50              25  xxxxxxxxxxxx  5
+ 51              26  xxxxxxxxxxxx  3
+ 52              26  xxxxxxxxxxxx  5
+ 53               1  ------------  1
+ 54               1  ------------  1
+ 55               2  ------------  2
+ 56               2  xxxxxxxxxxxx  20
+ 57               3  xxxxxxxxxxxx  1
+ 58               3  ------------  3
+ 59               4  ------------  4
+ 60               4  xxxxxxxxxxxx  5
+ 61               5  ------------  5
+ 62               5  xxxxxxxxxxxx  4
+ 63               6  xxxxxxxxxxxx  19
+ 64               6  xxxxxxxxxxxx  19
+ 65               7  ------------  7
+ 66               7  ------------  7
+ 67               8  xxxxxxxxxxxx  7
+ 68               8  xxxxxxxxxxxx  1
+ 69               9  xxxxxxxxxxxx  1
+ 70               9  ------------  9
+ 71              10  ------------  10
+ 72              10  xxxxxxxxxxxx  1
+ 73              11  xxxxxxxxxxxx  1
+ 74              11  xxxxxxxxxxxx  10
+ 75              12  ------------  12
+ 76              12  ------------  12
+ 77              13  xxxxxxxxxxxx  10
+ 78              13  xxxxxxxxxxxx  6
+ 79              14  xxxxxxxxxxxx  1
+ 80              14  ------------  14
+ 81              15  xxxxxxxxxxxx  1
+ 82              15  xxxxxxxxxxxx  9
+ 83              16  xxxxxxxxxxxx  20
+ 84              16  xxxxxxxxxxxx  2
+ 85              17  ------------  17
+ 86              17  ------------  17
+ 87              18  ------------  18
+ 88              18  ------------  18
+ 89              19  ------------  19
+ 90              19  ------------  19
+ 91              20  ------------  20
+ 92              20  xxxxxxxxxxxx  1
+ 93              21  xxxxxxxxxxxx  7
+ 94              21  ------------  21
+ 95              22  xxxxxxxxxxxx  2
+ 96              22  xxxxxxxxxxxx  2
+ 97              23  xxxxxxxxxxxx  2
+ 98              23  xxxxxxxxxxxx  1
+ 99              24  xxxxxxxxxxxx  6
+100              24  xxxxxxxxxxxx  6
+101              25  xxxxxxxxxxxx  1
+102              25  xxxxxxxxxxxx  5
+103              26  xxxxxxxxxxxx  5
+104              26  xxxxxxxxxxxx  2
+105               1  ------------  1
+106               1  ------------  1
+107               2  xxxxxxxxxxxx  16
+108               2  xxxxxxxxxxxx  7
+109               3  ------------  3
+110               3  ------------  3
+111               4  xxxxxxxxxxxx  7
+112               4  xxxxxxxxxxxx  2
+113               5  ------------  5
+114               5  xxxxxxxxxxxx  2
+115               6  xxxxxxxxxxxx  1
+116               6  ------------  6
+117               7  xxxxxxxxxxxx  8
+118               7  ------------  7
+119               8  ------------  8
+120               8  xxxxxxxxxxxx  1
+121               9  xxxxxxxxxxxx  1
+122               9  ------------  9
+123              10  xxxxxxxxxxxx  1
+124              10  ------------  10
+125              11  xxxxxxxxxxxx  1
+126              11  xxxxxxxxxxxx  1
+127              12  xxxxxxxxxxxx  7
+128              12  xxxxxxxxxxxx  15
+129              13  xxxxxxxxxxxx  9
+130              13  xxxxxxxxxxxx  7
+131              14  ------------  14
+132              14  xxxxxxxxxxxx  10
+133              15  xxxxxxxxxxxx  5
+134              15  ------------  15
+135              16  xxxxxxxxxxxx  9
+136              16  xxxxxxxxxxxx  2
+137              17  ------------  17
+138              17  xxxxxxxxxxxx  1
+139              18  xxxxxxxxxxxx  1
+140              18  ------------  18
+141              19  xxxxxxxxxxxx  1
+142              19  xxxxxxxxxxxx  1
+143              20  xxxxxxxxxxxx  2
+144              20  xxxxxxxxxxxx  2
+145              21  xxxxxxxxxxxx  5
+146              21  xxxxxxxxxxxx  2
+147              22  xxxxxxxxxxxx  4
+148              22  xxxxxxxxxxxx  2
+149              23  xxxxxxxxxxxx  7
+150              23  xxxxxxxxxxxx  1
+151              24  ------------  24
+152              24  xxxxxxxxxxxx  1
+153              25  xxxxxxxxxxxx  7
+154              25  xxxxxxxxxxxx  10
+155              26  xxxxxxxxxxxx  1
+156              26  xxxxxxxxxxxx  2
+157               1  ------------  1
+158               1  xxxxxxxxxxxx  7
+159               2  xxxxxxxxxxxx  5
+160               2  xxxxxxxxxxxx  5
+161               3  ------------  3
+162               3  ------------  3
+163               4  xxxxxxxxxxxx  7
+164               4  xxxxxxxxxxxx  3
+165               5  ------------  5
+166               5  xxxxxxxxxxxx  3
+167               6  xxxxxxxxxxxx  19
+168               6  ------------  6
+169               7  xxxxxxxxxxxx  1
+170               7  xxxxxxxxxxxx  5
+171               8  ------------  8
+172               8  xxxxxxxxxxxx  1
+173               9  xxxxxxxxxxxx  6
+174               9  ------------  9
+175              10  xxxxxxxxxxxx  6
+176              10  xxxxxxxxxxxx  1
+177              11  xxxxxxxxxxxx  21
+178              11  xxxxxxxxxxxx  1
+179              12  ------------  12
+180              12  xxxxxxxxxxxx  1
+181              13  xxxxxxxxxxxx  6
+182              13  xxxxxxxxxxxx  1
+183              14  xxxxxxxxxxxx  1
+184              14  xxxxxxxxxxxx  1
+185              15  xxxxxxxxxxxx  1
+186              15  ------------  15
+187              16  xxxxxxxxxxxx  2
+188              16  xxxxxxxxxxxx  1
+189              17  xxxxxxxxxxxx  8
+190              17  xxxxxxxxxxxx  1
+191              18  xxxxxxxxxxxx  6
+192              18  xxxxxxxxxxxx  6
+193              19  ------------  19
+194              19  ------------  19
+195              20  xxxxxxxxxxxx  1
+196              20  xxxxxxxxxxxx  8
+197              21  xxxxxxxxxxxx  10
+198              21  xxxxxxxxxxxx  17
+199              22  xxxxxxxxxxxx  5
 --------------------------------------------------
-Total number of instances in test data = 19
-Number of correctly predicted instances = 4
-Accuracy of decision tree classifier = 21.0526%
+Total number of instances in test data = 199
+Number of correctly predicted instances = 59
+Accuracy of decision tree classifier = 29.6482%

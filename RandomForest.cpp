@@ -177,7 +177,7 @@ tmpTrainingData.clear();
 */
 
 void randomSelectTrainingData(vvd& trainingData, int numTrees, vvvd& selectedTrainingData) {
-	const double SELECT_PERCENT = 0.7;
+	const double SELECT_PERCENT = 0.5;
 	int treeTrainDataSize = (int)(trainingData.size() * SELECT_PERCENT);
 	vvd tmpTrainingData;
 	for (int i = 0; i < numTrees; i++) {

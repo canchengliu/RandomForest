@@ -1,6 +1,6 @@
 CC = g++
 CFLAGS=-c -w -O2
-SOURCES=DecisionTree.cpp functions.cpp
+SOURCES=DecisionTree.cpp RandomForest.cpp main.cpp
 OBJECTS=$(SOURCES:.c=.o)
 EXECUTABLE=dtree
 

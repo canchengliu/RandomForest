@@ -17,7 +17,7 @@
 
 #define MAX_BIN 2
 #define MAX_CLASS_COUNT 26 // the total number of class
-#define MAX_DEEPTH 3
+#define MAX_DEEPTH 4
 using namespace std;
 
 
