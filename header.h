@@ -14,10 +14,12 @@
 #include <limits.h>
 #include <cstring>
 #include <algorithm>
+#include <mpi.h>
 
-#define MAX_BIN 2
-#define MAX_CLASS_COUNT 26 // the total number of class
-#define MAX_DEEPTH 4
+extern int MAX_BIN;
+extern unsigned int MAX_CLASS_COUNT; // the total number of class
+extern int MAX_DEEPTH;
+
 using namespace std;
 
 
@@ -34,5 +36,12 @@ typedef vector<vd> vvd;
 typedef vector<vvd> vvvd;
 typedef vector<splitBound> vsb;
 typedef vector<vsb> vvsb;
+
+namespace MessageTag {
+	enum MessageTagEnum {
+		RowBuffer,
+		TreeFinished
+	};
+}
 
 #endif

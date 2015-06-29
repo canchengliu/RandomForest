@@ -1,5 +1,9 @@
 #include "DecisionTree.h"
 
+extern int MAX_BIN;
+extern unsigned int MAX_CLASS_COUNT; // the total number of class
+extern int MAX_DEEPTH;
+
 string linefilter(string &sourceline) {
 	return sourceline.substr(sourceline.find(',') + 2, sourceline.size()); // get rid of the id of each line
 }
@@ -139,14 +143,10 @@ node* buildDecisionTree(vvd &table, node* nodePtr, vvsb &tableInfo){
 	}
 	else {
 		int colIndex = decideSplittingColumn(table);
-		//cout << "*11";
 		nodePtr->splitOn = colIndex;
 		nodePtr->isLeaf = false;
-		cout << colIndex;
-		cout << "size:" << tableInfo.size();
 		//int colIndex = returnColumnIndex(splittingCol, tableInfo);
 		for (size_t i = 0; i < tableInfo[colIndex].size(); i++) {
-			//cout << "*33&&&&&";
 			node* newNode = (node*) new node;
 			newNode->label = 0;//tableInfo[colIndex][i];
 			newNode->deepth = nodePtr->deepth + 1;
@@ -154,11 +154,8 @@ node* buildDecisionTree(vvd &table, node* nodePtr, vvsb &tableInfo){
 			newNode->splitOn = colIndex;
 			nodePtr->childrenSplitBound.push_back(tableInfo[colIndex][i]);
 			vvd auxTable = pruneTable(table, colIndex, tableInfo[colIndex][i]);
-			//cout << "*66";
 			nodePtr->children.push_back(buildDecisionTree(auxTable, newNode, tableInfo));
-			//cout << "*77";
 		}
-		//cout << "*44";
 	}
 	return nodePtr;
 }
@@ -223,31 +220,23 @@ int decideSplittingColumn(vvd &table){
 		double entropy = 0.0;
 		for (i = 0; i < tableInfo[column].size(); i++) {
 			currSplitBound = tableInfo[column][i];
-			//cout << "*ss";
 			vvd tempTable = pruneTable(table, column, currSplitBound);
 			if (tableIsEmpty(tempTable)) {
 				attributeEntropy.push_back(0.0);
 				continue;
 			}
-			//cout << "*tt";
 			vi classCounts = countDistinctClass(tempTable);
-			//cout << "*jj";
 			size_t j, classCountSize = classCounts.size();
-			//cout << "*ip";
 			for (j = 0; j < classCountSize; j++) {
 				double temp = (double)classCounts[j];
 				entropy -= (temp / classCounts[classCountSize - 1])*(log(temp / classCounts[classCountSize - 1]) / log(2));
 			}
-			//cout << "*wi";
 			attributeEntropy.push_back(entropy);
 			entropy = 0.0;
-			//cout << "*QQ";
 		}
-		//cout << "*ii";
 		for (i = 0; i < tableInfo[column].size(); i++) {
 			columnEntropy += ((double)tableInfo[column][i].numInBound * (double)attributeEntropy[i]);
 		}
-		//cout << "*ij";
 		columnEntropy = columnEntropy / ((double)table.size() - 1);
 		if (columnEntropy <= minEntropy) {
 			minEntropy = columnEntropy;
@@ -266,30 +255,6 @@ inline bool tableIsEmpty(vvd &table){
 }
 
 /*
-* Recursively prints the decision tree
-* For debugging purposes only
-
-void printDecisionTree(node* nodePtr){
-if(nodePtr == NULL) {
-return;
-}
-if (!nodePtr->children.empty()) {
-cout << " Value: " << nodePtr->label << endl;
-cout << "Split on: " << nodePtr->splitOn;
-size_t i;
-for (i = 0; i < nodePtr->children.size(); i++) {
-cout << "\t";
-printDecisionTree(nodePtr->children[i]);
-}
-return;
-} else {
-cout << "Predicted class = " << nodePtr->label;
-return;
-}
-}
-*/
-
-/*
 * Takes a row and traverses that row through
 * the decision tree to find out the
 * predicted class label. If none is found
@@ -297,28 +262,23 @@ return;
 * the class label with the highest frequency.
 */
 int testDataOnDecisionTree(vd &singleLine, node* nodePtr, int defaultClass){
-	//cout << "*####";
 	int prediction = 0;
 	int colIndex, childIndex;
 	double value;
 	//nodePtr->isLeaf = false;
 
-	//cout << "*" << nodePtr->isLeaf << "*" << nodePtr->children.size() << endl;
 	while (!nodePtr->isLeaf && !nodePtr->children.empty()) {
-		//cout << "*@@@";
 		colIndex = nodePtr->splitOn;
 		value = singleLine[colIndex];
 		childIndex = getIndexOfChildren(nodePtr->childrenSplitBound, value);
 		nodePtr = nodePtr->children[childIndex];
 		if (nodePtr == NULL) {
-			//cout << "*(((((((((((";
 			prediction = defaultClass;
 			break;
 		}
 		prediction = nodePtr->label;
 		
 	}
-	//cout << "*^^^^^^";
 	return prediction;
 }
 
@@ -335,25 +295,6 @@ int getIndexOfChildren(vsb &childsb, double value) {
 	return 0;
 }
 
-/*
-* Returns an integer which is the index
-* of a string in a vector of strings
-
-int returnIndexOfVector(vs &stringVector, string value){
-size_t i;
-for (i = 0; i < stringVector.size(); i++) {
-if (stringVector[i] == value)	{
-return i;
-}
-}
-return -1;
-}
-*/
-
-/*
-* Outputs the predictions to file
-* and returns the accuracy of the classification
-*/
 double printPredictionsAndCalculateAccuracy(vi &givenData, vi &predictions){
 	ofstream outputFile;
 	outputFile.open("test_decisionTreeOutput.txt");

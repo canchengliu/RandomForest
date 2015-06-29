@@ -3,6 +3,7 @@
 
 #include "header.h"
 
+
 struct splitBound {
 	double leftBound;
 	double rightBound;
