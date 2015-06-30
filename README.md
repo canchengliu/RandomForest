@@ -38,23 +38,35 @@ The current program only supports string attributes (the values of the attribute
         a) 操作系统：Mac OS / Linux， 本程序测试所用操作系统是 Mac OSX Yosemite version 10.10.3
         b) 安装配置：需进行MPI相关的配置，本程序测试配置的是 openmpi 1.8.6
     2. 运行方法
-        a) 进入到/src目录， 输入命令 make 进行编译
-        b) 再输入 mpirun -n [0] rfmpi [1] [2] [3] [4] [5] 
+        a) 进入到程序主目录， 输入命令 make 进行编译
+        b) 输入 mpirun -n [0] rfmpi [1] [2] [3] [4] [5] 运行程序
             参数说明：
             [0] - 
-            [1] - Trees per forest handle by each child thread\n"
-            [2] - Number of different class label\n"
-            [3] - Split keys per node\n"
-            [4] - Maximun deepth of each tree and the deepth of root is 0\n"
-            [5] - Training set sample probability (%)" << endl;
+            [1] - Trees per forest handle by each child thread
+            [2] - Number of different class label
+            [3] - Split keys per node
+            [4] - Maximun deepth of each tree and the deepth of root is 0
+            [5] - Training set sample probability (%)
 
 
             eg: To run the program, execute the following commands in the terminal:
 
             make
-            ./dtree train.dat test.dat
+            mpirun -n 4 ./rfmpi 10 26 3 4 70
 
-### Input file format:
+### 实现说明:
+    
+
+
+
+
+
+
+
+
+
+
+
 
 * The input files describe a tabular format for the data.
 * Values of the different attributes of a single instance/row are delimited by commas.
