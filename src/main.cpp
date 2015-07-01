@@ -9,8 +9,8 @@ int main(int argc, char ** argv) {
 	unsigned int numTrees;
 	vvd trainingData;
 	vvd testingData;
-	readTrainFile("data/Nonlinear/train.csv", trainingData);
-	readTestFile("data/Nonlinear/train100.csv", testingData);							// Input data in the form of a vector of vector of strings
+	readTrainFile("data/train100.csv", trainingData);
+	readTestFile("data/test100.csv", testingData);							// Input data in the form of a vector of vector of strings
 
 	// Determine if MPI has been initialized already.
 	MPI_Initialized(&is_initialized);

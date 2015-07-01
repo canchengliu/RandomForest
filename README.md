@@ -13,9 +13,6 @@ Contact email: [liucch3@gmail.com](mailto:liucch3@gmail.com).
 Notes:
 ------
 
-The program takes two files as input; a training file and a testing file. The output of the program is stored in a file named: `decisionTreeOutput.txt`.  
-The current program only supports string attributes (the values of the attributes must be of string type. Numerical values are not currently supported. Any numerical values will be treated as strings.).
-
 ### 输入文件格式:
     id,value0,value1,value2...,label
     0, -0.4394, -0.0930, 0.1718, 15
@@ -23,6 +20,7 @@ The current program only supports string attributes (the values of the attribute
     ...
 
     第一列为ID， 各属性值为连续的浮点数，最后一列为类别标签，类型为整形。
+
 
 ### 输出文件格式:
     可根据需要输出两个输出文件：
@@ -52,10 +50,11 @@ The current program only supports string attributes (the values of the attribute
             eg: To run the program, execute the following commands in the terminal:
 
             make
-            mpirun -n 4 ./rfmpi 10 26 3 4 70
+            mpirun -n 3 ./rfmpi 2 26 2 3 70
 
 ### 实现说明:
-    
+
+
 
 
 
